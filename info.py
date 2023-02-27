@@ -13,7 +13,9 @@ password = os.environ.get('PASSWORD')
 
 
 #this info can stay here (its public on github though)
-position = 'software developer'
+
+position = 'software engineer'
+
 zipCode = '10018'
 name = 'John Hurley'
 phone = '(321) 394-6133'

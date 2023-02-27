@@ -35,7 +35,7 @@ ActionChains(driver) \
     .perform()
 
 # click log in with password
-terminalLogger(message='Click log in with password instead...', sleepTime=5)
+terminalLogger(message='Click log in with password instead...', sleepTime=1)
 Btn = driver.find_element(By.CSS_SELECTOR, '.css-1imtygv')
 Btn.click()
 
@@ -76,10 +76,11 @@ posts_list = driver.find_element(by=By.CLASS_NAME, value='jobsearch-ResultsList'
 posts = posts_list.find_elements(by=By.CLASS_NAME, value='jcs-JobTitle')
 print(len(posts))
 
-def checkEasyApply():
+rightPane = driver.find_element(by=By.CSS_SELECTOR, value='div.jobsearch-RightPane')
+
+def checkEasyApply(driver=driver):
     driver.implicitly_wait(30)
     time.sleep(5)
-
     # application_btn = driver.find_element(by=By.CLASS_NAME, value='css-v0a1gu')
     # application_btn = driver.find_element(by=By.CLASS_NAME, value='css-1hjxf1u')
 
@@ -92,7 +93,7 @@ def checkEasyApply():
 
     try:
         print('finding apply button..')
-        application_btn = driver.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc')
+        application_btn = rightPane.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
         application_btn.click()
         terminalLogger(message='Easy Apply button found')
         easyApply(driver)
@@ -106,8 +107,9 @@ for post in posts:
     checkEasyApply(driver=driver)
     time.sleep(3)
 
+terminalLogger(message='end script in 5', sleepTime=5)
 
-
+driver.quit()
 ####################################################### Scratched for manual sign in
 
 
