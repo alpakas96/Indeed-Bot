@@ -17,16 +17,14 @@ def terminalLogger(sleepTime=0.5, message=''):
     time.sleep(sleepTime)
     print('\n')
 
-chrome_options = ChromeOptions()
-# chrome_options.add_argument("--remote-debugging-port=9222")
-driver = Chrome(options=chrome_options)
 
-# switch to the first window (assuming it exists)
-# driver.switch_to.window(driver.window_handles[0])
+# Replace the path with the path to your Chrome driver executable
+driver_path = './chromedriver'
 
-driver.get("https://www.indeed.com")
-driver.maximize_window()
-
+chrome_options = Options()
+chrome_options.add_argument('--remote-debugging-port=9222')
+driver_path = './chromedriver'
+driver = Chrome(service=ChromeService(executable_path=driver_path), options=chrome_options)
 
 
 ######### Input job search params

@@ -38,3 +38,18 @@ Update cv.txt to your desire cover letter
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
+# indeed.py: 
+ on mac: 
+1. open terminal
+
+2. run: 
+
+open -na "Google Chrome" --args --remote-debugging-port=9222
+
+3. navigate to indeed.com 
+
+4. log in 
+
+5. clear job title and location 
+
+6. run program
