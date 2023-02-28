@@ -93,7 +93,9 @@ def checkEasyApply(driver=driver):
 
     try:
         print('finding apply button..')
-        application_btn = rightPane.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
+        iframe = rightPane.find_element(by=By.TAG_NAME, value='iframe')
+        driver.switch_to.frame(iframe)
+        application_btn = driver.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
         application_btn.click()
         terminalLogger(message='Easy Apply button found')
         #switch focus to new tab
