@@ -26,7 +26,6 @@ chrome_options.add_argument('--remote-debugging-port=9222')
 driver_path = './chromedriver'
 driver = Chrome(service=ChromeService(executable_path=driver_path), options=chrome_options)
 
-
 ######### Input job search params
 terminalLogger(message='typing search inputs')
 what_input = driver.find_element(by=By.ID, value='text-input-what')
@@ -44,21 +43,26 @@ posts_list = driver.find_element(by=By.CLASS_NAME, value='jobsearch-ResultsList'
 posts = posts_list.find_elements(by=By.CLASS_NAME, value='jcs-JobTitle')
 print(len(posts))
 
-def rightPaneFunction(driver=driver):
-    rightPane = driver.find_element(by=By.CSS_SELECTOR, value='div.jobsearch-RightPane')
-    terminalLogger(message='right pane found')
-    return rightPane
-
 def checkEasyApply(driver=driver):
     driver.implicitly_wait(10)
     time.sleep(5)
 
     try:
-        print('finding apply button..')
-        iframe = rightPaneFunction(driver).find_element(by=By.TAG_NAME, value='iframe')
+
+        ### find Easy apply button
+        print('clicked on post')
+        rightPane = driver.find_element(by=By.CSS_SELECTOR, value='div.jobsearch-RightPane')
+        terminalLogger(message='right pane found')
+
+        driver.switch_to.frame(rightPane)
+        terminalLogger(message='switched to right pane')
+        
+        iframe = driver.find_element(by=By.TAG_NAME, value='iframe')
         terminalLogger(message='iframe found')
+        
         driver.switch_to.frame(iframe)
         terminalLogger(message='switched to iframe')
+
         application_btn = driver.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
         application_btn.click()
         terminalLogger(message='Easy Apply button found')
