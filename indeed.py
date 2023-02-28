@@ -96,6 +96,8 @@ def checkEasyApply(driver=driver):
         application_btn = rightPane.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
         application_btn.click()
         terminalLogger(message='Easy Apply button found')
+        #switch focus to new tab
+        driver.switch_to.window(driver.window_handles[1])
         easyApply(driver)
     except:
         terminalLogger(message='Easy Apply button not found') 
