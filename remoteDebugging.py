@@ -1,0 +1,1 @@
+/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --flag-switches-begin --flag-switches-end --remote-debugging-port=9222
