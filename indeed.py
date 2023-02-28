@@ -76,7 +76,7 @@ posts_list = driver.find_element(by=By.CLASS_NAME, value='jobsearch-ResultsList'
 posts = posts_list.find_elements(by=By.CLASS_NAME, value='jcs-JobTitle')
 print(len(posts))
 
-def rightPaneFunction():
+def rightPaneFunction(driver=driver):
     rightPane = driver.find_element(by=By.CSS_SELECTOR, value='div.jobsearch-RightPane')
     terminalLogger(message='right pane found')
     return rightPane
@@ -96,7 +96,7 @@ def checkEasyApply(driver=driver):
 
     try:
         print('finding apply button..')
-        iframe = rightPaneFunction.find_element(by=By.TAG_NAME, value='iframe')
+        iframe = rightPaneFunction(driver).find_element(by=By.TAG_NAME, value='iframe')
         terminalLogger(message='iframe found')
         driver.switch_to.frame(iframe)
         terminalLogger(message='switched to iframe')
