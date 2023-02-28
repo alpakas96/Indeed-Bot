@@ -46,21 +46,15 @@ wait = WebDriverWait(driver, 10)
 
 ######### Input job search params
 terminalLogger(message='typing job title')
-what_input = wait.until(EC.element_to_be_clickable((By.ID, 'text-input-what')))
+what_input = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'text-input-what')))
 
 
 terminalLogger(message='typing location')
 where_input = driver.find_element(by=By.ID, value='text-input-where')
 
-what_input.click()
+ActionChains(driver).click(what_input).key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.DELETE).send_keys(info.position).perform()
+ActionChains(driver).click(where_input).key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).send_keys(Keys.DELETE).send_keys(info.location).perform()
 
-ActionChains(driver) \
-    .send_keys_to_element(what_input, info.position) \
-    .perform()
-
-ActionChains(driver) \
-    .send_keys_to_element(where_input, info.location) \
-    .perform()
 
 search_button = driver.find_element(by=By.CLASS_NAME, value='yosegi-InlineWhatWhere-primaryButton')
 terminalLogger(message='search button found')
@@ -99,8 +93,9 @@ def checkEasyApply(driver=driver):
 
         # application_btn = driver.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
         try:
-            # application_btn = driver.find_element(by=By.CSS_SELECTOR, value='div.jobsearch-IndeedApplyButton-buttonWrapper button.css-1bm49rc.e8ju0x51')
-            application_btn = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/main/div/div[1]/div/div/div[5]/div[2]/div/div/div/div/div[2]/div/div/div[1]/div/div[1]/div[1]/div[3]/div/div[2]/div/div/span/div[2]/button')))
+
+            application_btn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//button[@class="css-1bm49rc e8ju0x51" and @aria-label="Apply now opens in a new tab"]')))
+
 
             application_btn.click()
             terminalLogger(message='Easy Apply button found')
