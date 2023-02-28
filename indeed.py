@@ -47,13 +47,17 @@ terminalLogger(message='typing job title')
 what_input = driver.find_element(by=By.ID, value='text-input-what')
 
 terminalLogger(message='typing location')
-where_input = driver.find_element(by=By.ID, value='label-text-input-where')
+where_input = driver.find_element(by=By.ID, value='text-input-where')
 
 
 what_input.click()
 
 ActionChains(driver) \
     .send_keys_to_element(what_input, info.position) \
+    .perform()
+
+ActionChains(driver) \
+    .send_keys_to_element(where_input, info.location) \
     .perform()
 
 search_button = driver.find_element(by=By.CLASS_NAME, value='yosegi-InlineWhatWhere-primaryButton')
