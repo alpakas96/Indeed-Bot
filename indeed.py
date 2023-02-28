@@ -12,6 +12,22 @@ from info import *
 import time
 from EasyApply import *
 
+
+###IMPORTANT###
+# 1. open terminal
+
+# 2. run: 
+
+# open -na "Google Chrome" --args --remote-debugging-port=9222
+
+# 3. navigate to indeed.com 
+
+# 4. log in 
+
+# 5. clear job title and location 
+
+# 6. run program
+
 def terminalLogger(sleepTime=0.5, message=''):
     print(message)
     time.sleep(sleepTime)
@@ -27,17 +43,23 @@ driver_path = './chromedriver'
 driver = Chrome(service=ChromeService(executable_path=driver_path), options=chrome_options)
 
 ######### Input job search params
-terminalLogger(message='typing search inputs')
+terminalLogger(message='typing job title')
 what_input = driver.find_element(by=By.ID, value='text-input-what')
+
+terminalLogger(message='typing location')
 where_input = driver.find_element(by=By.ID, value='label-text-input-where')
 
+
 what_input.click()
+
 ActionChains(driver) \
     .send_keys_to_element(what_input, info.position) \
     .perform()
 
 search_button = driver.find_element(by=By.CLASS_NAME, value='yosegi-InlineWhatWhere-primaryButton')
+terminalLogger(message='search button found')
 search_button.click()
+terminalLogger(message='search button clicked')
 
 posts_list = driver.find_element(by=By.CLASS_NAME, value='jobsearch-ResultsList')
 posts = posts_list.find_elements(by=By.CLASS_NAME, value='jcs-JobTitle')
