@@ -13,7 +13,7 @@ import time
 
 # initialize delay function which will return a random value between 3 and 7 seconds
 def delay():
-    time.sleep(random.uniform(3,7))
+    time.sleep(random.uniform(1,3))
 
 def textInputQuestion(currentQuestion, driver):
     # write the if statement to handle all text input questions where the answer is no

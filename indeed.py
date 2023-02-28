@@ -76,10 +76,13 @@ posts_list = driver.find_element(by=By.CLASS_NAME, value='jobsearch-ResultsList'
 posts = posts_list.find_elements(by=By.CLASS_NAME, value='jcs-JobTitle')
 print(len(posts))
 
-rightPane = driver.find_element(by=By.CSS_SELECTOR, value='div.jobsearch-RightPane')
+def rightPaneFunction():
+    rightPane = driver.find_element(by=By.CSS_SELECTOR, value='div.jobsearch-RightPane')
+    terminalLogger(message='right pane found')
+    return rightPane
 
 def checkEasyApply(driver=driver):
-    driver.implicitly_wait(30)
+    driver.implicitly_wait(10)
     time.sleep(5)
     # application_btn = driver.find_element(by=By.CLASS_NAME, value='css-v0a1gu')
     # application_btn = driver.find_element(by=By.CLASS_NAME, value='css-1hjxf1u')
@@ -93,9 +96,15 @@ def checkEasyApply(driver=driver):
 
     try:
         print('finding apply button..')
-        application_btn = rightPane.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
+        iframe = rightPaneFunction.find_element(by=By.TAG_NAME, value='iframe')
+        terminalLogger(message='iframe found')
+        driver.switch_to.frame(iframe)
+        terminalLogger(message='switched to iframe')
+        application_btn = driver.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
         application_btn.click()
         terminalLogger(message='Easy Apply button found')
+        #switch focus to new tab
+        driver.switch_to.window(driver.window_handles[1])
         easyApply(driver)
     except:
         terminalLogger(message='Easy Apply button not found') 
