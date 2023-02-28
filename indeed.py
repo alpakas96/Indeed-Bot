@@ -84,12 +84,12 @@ def checkEasyApply(driver=driver):
         terminalLogger(message='right pane found')
 
         #debugging here: 
-        try:
-            driver.switch_to.frame(rightPane)
-            terminalLogger(message='switched to right pane')
+        # try:
+        #     driver.switch_to.frame(rightPane)
+        #     terminalLogger(message='switched to right pane')
 
-        except Exception as e:
-            print(f"An exception occurred: {e}")
+        # except Exception as e:
+        #     print(f"An exception occurred: {e}")
         
         iframe = driver.find_element(by=By.TAG_NAME, value='iframe')
         terminalLogger(message='iframe found')
@@ -97,7 +97,8 @@ def checkEasyApply(driver=driver):
         driver.switch_to.frame(iframe)
         terminalLogger(message='switched to iframe')
 
-        application_btn = driver.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
+        # application_btn = driver.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
+        application_btn = driver.find_element(by=By.CLASS_NAME, value='css-1bm49rc.e8ju0x51')
         application_btn.click()
         terminalLogger(message='Easy Apply button found')
 
@@ -107,6 +108,9 @@ def checkEasyApply(driver=driver):
 
     except:
         terminalLogger(message='Easy Apply button not found') 
+        #undo switch to iframe
+        driver.switch_to.default_content()
+        terminalLogger(message='switched focus back to default content')
         pass
 
 
