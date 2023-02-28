@@ -42,13 +42,15 @@ chrome_options.add_argument('--remote-debugging-port=9222')
 driver_path = './chromedriver'
 driver = Chrome(service=ChromeService(executable_path=driver_path), options=chrome_options)
 
+wait = WebDriverWait(driver, 10)
+
 ######### Input job search params
 terminalLogger(message='typing job title')
-what_input = driver.find_element(by=By.ID, value='text-input-what')
+what_input = wait.until(EC.element_to_be_clickable((By.ID, 'text-input-what')))
+
 
 terminalLogger(message='typing location')
 where_input = driver.find_element(by=By.ID, value='text-input-where')
-
 
 what_input.click()
 
@@ -72,16 +74,22 @@ print(len(posts))
 def checkEasyApply(driver=driver):
     driver.implicitly_wait(10)
     time.sleep(5)
+    wait = WebDriverWait(driver, 10)
 
     try:
 
         ### find Easy apply button
         print('clicked on post')
-        rightPane = driver.find_element(by=By.CSS_SELECTOR, value='div.jobsearch-RightPane')
+        rightPane = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div.jobsearch-RightPane')))
         terminalLogger(message='right pane found')
 
-        driver.switch_to.frame(rightPane)
-        terminalLogger(message='switched to right pane')
+        #debugging here: 
+        try:
+            driver.switch_to.frame(rightPane)
+            terminalLogger(message='switched to right pane')
+
+        except Exception as e:
+            print(f"An exception occurred: {e}")
         
         iframe = driver.find_element(by=By.TAG_NAME, value='iframe')
         terminalLogger(message='iframe found')
@@ -92,9 +100,11 @@ def checkEasyApply(driver=driver):
         application_btn = driver.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
         application_btn.click()
         terminalLogger(message='Easy Apply button found')
+
         #switch focus to new tab
         driver.switch_to.window(driver.window_handles[1])
         easyApply(driver)
+
     except:
         terminalLogger(message='Easy Apply button not found') 
         pass
