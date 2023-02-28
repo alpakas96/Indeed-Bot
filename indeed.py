@@ -98,9 +98,16 @@ def checkEasyApply(driver=driver):
         terminalLogger(message='switched to iframe')
 
         # application_btn = driver.find_element(by=By.CSS_SELECTOR, value='button.css-1bm49rc.e8ju0x51')
-        application_btn = driver.find_element(by=By.CLASS_NAME, value='css-1bm49rc.e8ju0x51')
-        application_btn.click()
-        terminalLogger(message='Easy Apply button found')
+        try:
+            # application_btn = driver.find_element(by=By.CSS_SELECTOR, value='div.jobsearch-IndeedApplyButton-buttonWrapper button.css-1bm49rc.e8ju0x51')
+            application_btn = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/main/div/div[1]/div/div/div[5]/div[2]/div/div/div/div/div[2]/div/div/div[1]/div/div[1]/div[1]/div[3]/div/div[2]/div/div/span/div[2]/button')))
+
+            application_btn.click()
+            terminalLogger(message='Easy Apply button found')
+
+        except Exception as e:
+            print(e)
+
 
         #switch focus to new tab
         driver.switch_to.window(driver.window_handles[1])
